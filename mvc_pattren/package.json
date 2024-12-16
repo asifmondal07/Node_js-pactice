@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "epress": "^0.0.1-security",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.1"
+  },
+  "name": "mvc_pattren",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": " nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
