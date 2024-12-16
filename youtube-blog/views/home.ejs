@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('./parcials/head.ejs') %>
+  </head>
+  <body>
+    <%- include('./parcials/navbar.ejs') %>
+
+    <div class="conatiner text-center mt-3">
+        <div class="row row-cols-4">
+            <% if (Array.isArray(blogs)) { %>
+                <% blogs.forEach(blog => { %>
+                        <div class="col">
+                            <div class="card" style="width: 18rem;">
+                                <img src="<%= blog.coverimage %>" class="card-img-top">
+                                <div class="card-body">
+                                <h5 class="card-title"><%= blog.title %></h5>
+                                <a href="/blog/<%= blog._id %>" class="btn btn-primary">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    
+                <% }) %>
+            <% } else { %>
+                        <p>No blogs available.</p>
+                    <% } %>
+        </div>
+    </div>
+    
+    <%- include('./parcials/script.ejs') %>
+  </body>
+</html>
