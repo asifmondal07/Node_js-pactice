@@ -6,7 +6,7 @@ const cookieparser=require("cookie-parser");
 const path=require("path");
 const { checkForAuthenticationCookie } = require("./middileware/auth");
 const Blog=require("./models/blog")
-const PORT=process.env.PORT || 8000;
+const PORT=process.env.PORT || 8001;
 const app=express();
 
 connectMongoDB(process.env.MONGO_URL || "mongodb://localhost:27017/youtube-blog-user")

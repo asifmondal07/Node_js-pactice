@@ -35,17 +35,32 @@ console.log("comments",comments);
     })
 });
 
-router.post("/",upload.single("coverimage"),async(req,res)=>{
-    const {title,body}=req.body;
-    const blog=await Blog.create({
-        title,
-        body,
-        createdBy:req.user._id,
-        coverimage:`/uploads/${req.file.filename}`,
+router.post("/", upload.single("coverimage"), async (req, res) => {
+    try {
+        if (!req.user) {
+            return res.status(401).json({ message: "Unauthorized: Invalid or expired token" });
+        }
 
-    })
-    return res.redirect(`/blog/${blog._id}`);
+        if (!req.file) {
+            return res.status(400).json({ message: "No file uploaded" });
+        }
+
+        const { title, body } = req.body;
+
+        const blog = await Blog.create({
+            title,
+            body,
+            createdBy: req.user._id,
+            coverimage: `/uploads/${req.file.filename}`,
+        });
+
+        return res.redirect(`/blog/${blog._id}`);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
 });
+
 
 router.post("/comment/:blogId",async(req,res)=>{
     try {
