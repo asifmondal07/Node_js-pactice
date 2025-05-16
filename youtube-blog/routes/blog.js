@@ -12,7 +12,9 @@ const storage = multer.diskStorage({
     filename: function (req, file, cb) {
         cb(null,  Date.now() + '-' + file.originalname);
     }
-  })
+  });
+
+
   
 const upload = multer({ storage: storage })
 
@@ -24,7 +26,7 @@ router.get("/add-new",(req,res)=>{
 
 router.get("/:id",async(req,res)=>{
     const blog = await Blog.findById(req.params.id).populate("createdBy");
-    // Use findOne to query based on blogId
+    // Use find to query based on blogId
     const comments = await Comment.find({ blogId: req.params.id }).populate("createdBy");
 
 console.log("comments",comments);
@@ -46,6 +48,8 @@ router.post("/", upload.single("coverimage"), async (req, res) => {
         }
 
         const { title, body } = req.body;
+
+        if(!title || !body){return res.status(400).json({message:"Require All all details"})}
 
         const blog = await Blog.create({
             title,
